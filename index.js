@@ -9,6 +9,7 @@ morgan.format('detail', ':method :url :status :res[content-length] - :response-t
 app.use(cors())
 app.use(express.json())
 app.use(morgan('detail'))
+app.use(express.static('build'))
 
 let persons = [{
   "name": "Arto Hellas",
@@ -30,10 +31,6 @@ let persons = [{
   "number": "39-23-6423122",
   "id": 4
 }]
-
-app.get('/', (req, res) => {
-  res.send('<h1>Hello World!</h1>')
-})
 
 app.get('/info', (req, res) => {
   let content = `<p>Phonebook has info for ${persons.length} people</p>` + Date().toString()
