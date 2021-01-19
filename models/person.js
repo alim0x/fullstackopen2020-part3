@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 //TODO: remove password before commit
 const url = process.env.MONGODB_URI
 
-console.log('connectinf to', url)
+console.log('connecting to', url)
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
   .then(result => {
