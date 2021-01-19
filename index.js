@@ -5,6 +5,7 @@ const cors = require('cors')
 const app = express()
 const Person = require('./models/person')
 
+// eslint-disable-next-line
 morgan.token('payload', (req, res) => {return JSON.stringify(req.body)})
 morgan.format('detail', ':method :url :status :res[content-length] - :response-time ms :payload')
 
@@ -40,6 +41,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
+  // eslint-disable-next-line
     .then(result => {
       response.status(204).end()
     })
@@ -57,7 +59,7 @@ app.post('/api/persons', (request, response, next) => {
   person.save().then(savedPerson => {
     response.json(savedPerson)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
@@ -68,7 +70,7 @@ app.put('/api/persons/:id', (request, response, next) => {
     number: body.number,
   }
 
-  Person.findByIdAndUpdate(request.params.id, person, { new: true, runValidators: true, context: 'query'})
+  Person.findByIdAndUpdate(request.params.id, person, { new: true, runValidators: true, context: 'query' })
     .then(updatedPerson => {
       response.json(updatedPerson)
     })
@@ -88,10 +90,10 @@ const errorHandler = (error, request, response, next) => {
   if (error.name === 'CastError' && error.kind === 'ObjectId') {
     return response.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
-      return response.status(400).json({ 
-        error: error.message
-      })
-    }
+    return response.status(400).json({
+      error: error.message
+    })
+  }
 
   next(error)
 }
